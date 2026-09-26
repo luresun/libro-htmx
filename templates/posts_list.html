@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Posts - Libro-htmx App{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h2>All Posts</h2>
+        {% if is_logged_in %}
+        <a href="/posts/create" class="btn btn-primary">Create New Post</a>
+        {% endif %}
+    </div>
+    
+    {% if posts %}
+    <div class="posts-list">
+        {% for post in posts %}
+        <article class="post-summary">
+            <header>
+                <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
+                <div class="post-meta">
+                    <span class="post-date">{{ post.created_at }}</span>
+                </div>
+            </header>
+            
+            <div class="post-content">
+                <p>{{ post.content }}</p>
+            </div>
+            
+            <footer>
+                <a href="/posts/{{ post.id }}" class="btn btn-sm btn-outline">Read More</a>
+            </footer>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No posts found.</p>
+        {% if is_logged_in %}
+        <p><a href="/posts/create">Create the first post</a> to get started!</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

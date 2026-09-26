@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block title %}{% if let Some(post) = post %}{{ post.title }}{% else %}Post Not Found{% endif %} - Libro-htmx App{% endblock %}
+
+{% block content %}
+{% include "post_fragment.html" %}
+{% endblock %}

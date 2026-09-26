@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Libro-htmx App{% endblock %}</title>
+    <script src="/static/js/htmx.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Libro-htmx App</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if is_logged_in %}
+                    <li><a href="/profile">Profile</a></li>
+                    <li>
+                        <form method="post" action="/logout" hx-post="/logout" hx-target="body" hx-swap="innerHTML" style="display: inline;">
+                            <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; font-size: inherit; padding: 0;">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Clean Architecture with Axum</p>
+    </footer>
+</body>
+</html>

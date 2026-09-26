@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Clean Architecture App{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Create Account</h2>
+    
+    {% if !message.is_empty() %}
+    <div class="alert alert-{{ message_type }}">
+        {{ message }}
+    </div>
+    {% endif %}
+    
+    <form
+        method="post"
+        action="/register"
+    >
+        <div id="register-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    required 
+                    minlength="3"
+                    maxlength="50"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    maxlength="100"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    minlength="6"
+                >
+            </div>
+            
+            <button type="submit" class="btn">
+                Register
+                <span id="loading-indicator" class="htmx-indicator">⏳</span>
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

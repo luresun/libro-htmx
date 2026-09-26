@@ -1,0 +1,32 @@
+[package]
+name = "libro_htmx"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = { version = "0.8", features = ["multipart"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+sqlx = { version = "0.8", features = ["postgres", "runtime-tokio-rustls", "macros", "uuid", "chrono"], default-features = false }
+dotenvy = "0.15"
+tower = "0.5"
+anyhow = "1"
+argon2 = "0.5.3"
+rand = "0.8"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "std", "json"] }
+secrecy = { version = "0.10", features = ["serde"] }
+uuid = { version = "1.18.0", features = ["serde", "v4"] }
+chrono = { version = "0.4.41", features = ["serde"] }
+time = { version = "0.3", features = ["serde"] }
+thiserror = "2.0"
+async-trait = "0.1.89"
+axum-extra = { version = "0.10", features = ["cookie"] }
+jsonwebtoken = "9.3.0"
+askama = "0.13"
+askama_axum = "0.4"
+tower-http = { version = "0.6", features = ["trace", "cors", "fs"] }
+tower-sessions = "0.14"
+tower-sessions-sqlx-store = { version = "0.15", features = ["postgres"] }
+

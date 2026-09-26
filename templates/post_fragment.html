@@ -1,0 +1,49 @@
+<div class="post" id="post">
+    {% if let Some(post) = post %}
+    <article>
+        <header class="post-header">
+            <h1>{{ post.title }}</h1>
+            <div class="post-meta">
+                <span class="post-date">{{ post.created_at }}</span>
+                <span> · by {{ post.username }}</span>
+            </div>
+        </header>
+        <div class="post-content">
+            <p>{{ post.content }}</p>
+        </div>
+    </article>
+    <div class="post-actions">
+        <form hx-post="/posts/{{ post.id }}/like" hx-target="#post" hx-swap="outerHTML" style="display: inline;">
+            <button type="submit" class="btn btn-sm {% if post.is_liked_by_user %}btn-primary{% else %}btn-outline{% endif %}">
+                {% if post.is_liked_by_user %}&#10084;&#65039;{% else %}&#129293;{% endif %} {{ post.like_count }}
+            </button>
+        </form>
+    </div>
+    <div class="post-navigation">
+        <a href="/" class="btn btn-secondary">← Back to Home</a>
+    </div>
+    <div class="comments-section">
+        <h3>Comments</h3>
+        {% for comment in comments %}
+        <div class="comment">
+            <strong>{{ comment.username }}</strong>
+            <span class="comment-date">{{ comment.created_at }}</span>
+            <p>{{ comment.content }}</p>
+        </div>
+        {% endfor %}
+        {% if is_logged_in %}
+        <form hx-post="/posts/{{ post.id }}/comment" hx-target="#post" hx-swap="outerHTML" style="margin-top: 1rem;">
+            <div class="form-group">
+                <textarea name="content" placeholder="Add a comment..." required rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn btn-sm">Comment</button>
+        </form>
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>Post not found</p>
+        <a href="/">← Back to Home</a>
+    </div>
+    {% endif %}
+</div>
