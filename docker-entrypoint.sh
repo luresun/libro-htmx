@@ -1,9 +1,8 @@
 #!/bin/sh
 set -e
 
-echo "Starting application..."
-echo "DATABASE_URL is set: ${DATABASE_URL:+yes}"
-echo "JWT_SECRET is set: ${JWT_SECRET:+yes}"
+echo "Running SQL migrations..."
+sqlx migrate run
 
-# Start the server
+echo "Starting server..."
 exec /app/server
