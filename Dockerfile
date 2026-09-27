@@ -9,8 +9,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 COPY . .
 
-RUN cargo install sqlx-cli --no-default-features --features postgres --locked
-
 ENV CARGO_BUILD_JOBS=1
 RUN cargo build --release
 
@@ -20,11 +18,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     libssl3 \
     postgresql-client \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY --from=builder /root/.cargo/bin/sqlx /usr/local/bin/sqlx
+# Download pre-compiled sqlx-cli
+RUN curl -L https://github.com/launchbadge/sqlx-cli/releases/download/v0.7.4/sqlx-v0.7.4-x86_64-unknown-linux-musl.tar.gz | tar -xz -C /usr/local/bin
+
 COPY --from=builder /app/target/release/libro_htmx /app/server
 COPY --from=builder /app/templates /app/templates
 COPY --from=builder /app/static /app/static
