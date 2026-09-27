@@ -1,7 +1,7 @@
 [package]
 name = "libro_htmx"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
 axum = { version = "0.8", features = ["multipart"] }
@@ -29,4 +29,3 @@ askama_axum = "0.4"
 tower-http = { version = "0.6", features = ["trace", "cors", "fs"] }
 tower-sessions = "0.14"
 tower-sessions-sqlx-store = { version = "0.15", features = ["postgres"] }
-
