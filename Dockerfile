@@ -10,7 +10,6 @@ WORKDIR /app
 COPY . .
 
 ENV CARGO_BUILD_JOBS=1
-
 RUN cargo build --release
 
 FROM debian:bookworm-slim
@@ -26,10 +25,8 @@ COPY --from=builder /app/target/release/libro_htmx /app/server
 COPY --from=builder /app/templates /app/templates
 COPY --from=builder /app/static /app/static
 COPY --from=builder /app/uploads /app/uploads
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENV PORT=3000
 EXPOSE 3000
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["/app/server"]
